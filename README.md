@@ -17,8 +17,6 @@
 ```js
 window.$docsify = {
   contributors: {
-    owner: "doocs",
-    repo: "leetcode",
     ignores: ["/README.md"],
     style: {
       color: "#ffffff",
@@ -34,8 +32,6 @@ window.$docsify = {
 
 | 属性    | 类型     | 说明                                 | 默认值         |
 | ------- | -------- | ------------------------------------ | -------------- |
-| owner   | string   | 用户或组织名称                       | doocs          |
-| repo    | string   | 仓库名称                             | leetcode       |
 | ignores | string[] | 需要忽略展示的文件，开头需要加上 `/` | ["/README.md"] |
 | style   | {}       | 样式控制，见下文                     |                |
 

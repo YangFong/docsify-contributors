@@ -1,7 +1,6 @@
 window.$docsify.plugins = [].concat((hook, vm) => {
+  const { repo } = vm.config;
   const {
-    owner = "doocs",
-    repo = "leetcode",
     ignores = ["/README.md"],
     style = {
       color: "#ffffff",
@@ -20,7 +19,7 @@ window.$docsify.plugins = [].concat((hook, vm) => {
 
   const getCommits = async (file) => {
     const res = await fetch(
-      `https://api.github.com/repos/${owner}/${repo}/commits?path=/${file}&per_page=100`
+      `https://api.github.com/repos/${repo}/commits?path=/${file}&per_page=100`
     );
     return await res.json();
   };
@@ -31,17 +30,14 @@ window.$docsify.plugins = [].concat((hook, vm) => {
    * @returns
    */
   const createContributorsHTML = (users) => {
-    return `
-      <div class="doocs-contributors">
-        ${users
-          .map(
-            ({ url, img, name }) => `
-              <a class="doocs-contributor" href="${url}" target="_blank" dada-title="@${name}">
-                <img src="${img}" width="30" height="30" alt="@${name}">
-              </a>`
-          )
-          .join("")}
-      </div>`;
+    return users
+      .map(
+        ({ url, img, name }) => `
+          <a class="doocs-contributor" href="${url}" target="_blank" dada-title="@${name}">
+            <img src="${img}" width="30" height="30" alt="@${name}">
+          </a>`
+      )
+      .join("");
   };
 
   /**
@@ -89,21 +85,24 @@ window.$docsify.plugins = [].concat((hook, vm) => {
 
       .doocs-contributors a::before{
         box-sizing: border-box;
-        content: attr(dada-title);
+        content: "contributor" attr(dada-title);
         position: absolute;
-        top: -110%;
+        top: -100%;
         left: 50%;
         transform: translateX(-50%);
         transition: 200ms;
         min-width: max-content;
+        font-size: 12px;
         border-radius: 5px;
         padding: 0.5em;
         color: ${color};
         background-color: ${bgColor};
         opacity: 0;
+        z-index: -1;
       }
 
       .doocs-contributors a:hover::before  {
+        z-index: 2;
         opacity: 1;
       }
 
@@ -116,14 +115,21 @@ window.$docsify.plugins = [].concat((hook, vm) => {
     document.head.append(styleEle);
   });
 
-  hook.afterEach(async (html, next) => {
+  hook.afterEach((html, next) => {
     const { file } = vm.route;
     if (isIgnore(file)) {
-      next(html);
+      return next(html);
+    }
+    return next(html + `<div class="doocs-contributors"></div>`);
+  });
+
+  hook.doneEach(async () => {
+    const target = $(".doocs-contributors");
+    if (target == null) {
       return;
     }
+    const { file } = vm.route;
     const data = await getCommits(file);
-
-    next(html + createContributorsHTML(mapUser(data)));
+    target.innerHTML = createContributorsHTML(mapUser(data));
   });
 }, window.$docsify.plugins);
