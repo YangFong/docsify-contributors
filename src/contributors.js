@@ -1,4 +1,4 @@
-window.$docsify.plugins = [].concat(window.$docsify.plugins, (hook, vm) => {
+window.$docsify.plugins = [].concat((hook, vm) => {
   const {
     owner = "doocs",
     repo = "leetcode",
@@ -124,12 +124,6 @@ window.$docsify.plugins = [].concat(window.$docsify.plugins, (hook, vm) => {
     }
     const data = await getCommits(file);
 
-    next(
-      html.replace(
-        `<div class="docsify-pagination-container">`,
-        createContributorsHTML(mapUser(data)) +
-          `<div class="docsify-pagination-container">`
-      )
-    );
+    next(html + createContributorsHTML(mapUser(data)));
   });
-});
+}, window.$docsify.plugins);
