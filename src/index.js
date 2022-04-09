@@ -1,5 +1,6 @@
 window.$docsify.plugins = [].concat((hook, vm) => {
-  // 默认值配置
+  const { repo, contributors = {} } = vm.config;
+
   const defaultConfigStyle = {
     color: "#ffffff",
     bgColor: "#404040",
@@ -7,17 +8,14 @@ window.$docsify.plugins = [].concat((hook, vm) => {
     extra: ``,
   };
 
-  const { repo, contributors = {} } = vm.config;
-  const {
-    ignores,
-    style
-  } = {
+  const className = `${repo.split("/")[1]}-contributors`;
+  const { ignores, style } = {
     ignores: contributors.ignores ?? [],
     style: {
       ...defaultConfigStyle,
-      ...(contributors.style ?? {})
-    }
-  }
+      ...(contributors.style ?? {}),
+    },
+  };
 
   /**
    * 简化获取元素
@@ -79,25 +77,20 @@ window.$docsify.plugins = [].concat((hook, vm) => {
   const isIgnore = (file) => ignores.some((url) => url === `/${file}`);
 
   hook.init(() => {
-    const {
-      color = "#ffffff",
-      bgColor = "#404040",
-      isRound = true,
-      extra = ``,
-    } = style;
+    const { color, bgColor, isRound, extra } = style;
     const styleEle = document.createElement("style");
     styleEle.innerText = `
-      .docsify-contributors {
+      .${className} {
         display: flex;
         padding-top: 1em;
       }
 
-      .docsify-contributors a {
+      .${className} a {
         position: relative;
         margin: 0 0.5em;
       }
 
-      .docsify-contributors a::before, .docsify-contributors a::after {
+      .${className} a::before, .${className} a::after {
         position: absolute;
         box-sizing: border-box;
         transition: 100ms;
@@ -106,7 +99,7 @@ window.$docsify.plugins = [].concat((hook, vm) => {
         background-color: ${bgColor};
       }
 
-      .docsify-contributors a::before {
+      .${className} a::before {
         content: "contributor" attr(dada-title);
         top: -100%;
         left: 50%;
@@ -119,7 +112,7 @@ window.$docsify.plugins = [].concat((hook, vm) => {
         color: ${color};
       }
 
-      .docsify-contributors a::after {
+      .${className} a::after {
         content: '';
         top: calc(-100% + 26.5px);
         left: 50%;
@@ -129,13 +122,14 @@ window.$docsify.plugins = [].concat((hook, vm) => {
         clip-path: path("m0 0 l10 7 l10 -7z");
       }
 
-      .docsify-contributors a:hover::before,.docsify-contributors a:hover::after  {
+      .${className} a:hover::before,
+      .${className} a:hover::after  {
         z-index: 2;
         opacity: 1;
         transform: translate(-50%, 0%);
       }
 
-      .docsify-contributors a img {
+      .${className} a img {
         border-radius: ${isRound ? 50 : 0}%;
       }
 
@@ -149,11 +143,11 @@ window.$docsify.plugins = [].concat((hook, vm) => {
     if (isIgnore(file)) {
       return next(html);
     }
-    return next(html + `<div class="docsify-contributors"></div>`);
+    return next(html + `<div class="${className}"></div>`);
   });
 
   hook.doneEach(async () => {
-    const target = $(".docsify-contributors");
+    const target = $(`.${className}`);
     if (target == null) {
       return;
     }
