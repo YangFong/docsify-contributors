@@ -83,27 +83,42 @@ window.$docsify.plugins = [].concat((hook, vm) => {
         margin: 0 0.5em;
       }
 
-      .doocs-contributors a::before{
-        box-sizing: border-box;
-        content: "contributor" attr(dada-title);
+      .doocs-contributors a::before, .doocs-contributors a::after {
         position: absolute;
+        box-sizing: border-box;
+        transition: 100ms;
+        opacity: 0;
+        z-index: -1;
+        background-color: ${bgColor};
+      }
+
+      .doocs-contributors a::before {
+        content: "contributor" attr(dada-title);
         top: -100%;
         left: 50%;
-        transform: translateX(-50%);
-        transition: 200ms;
+        transform: translate(-50%, -100%);
         min-width: max-content;
+        height: 27px;
         font-size: 12px;
         border-radius: 5px;
         padding: 0.5em;
         color: ${color};
-        background-color: ${bgColor};
-        opacity: 0;
-        z-index: -1;
       }
 
-      .doocs-contributors a:hover::before  {
+      .doocs-contributors a::after {
+        content: '';
+        top: calc(-100% + 26.5px);
+        left: 50%;
+        transform: translate(-50%, -500%);
+        width: 20px;
+        height: 7px;
+        clip-path: path("m0 0 l10 7 l10 -7z");
+      }
+
+      .doocs-contributors a:hover::before,.doocs-contributors a:hover::after  {
         z-index: 2;
         opacity: 1;
+        transform: translate(-50%, 0%);
       }
 
       .doocs-contributors a img {
