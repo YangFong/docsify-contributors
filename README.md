@@ -6,10 +6,28 @@
 
 ## 使用
 
-添加 JS
+添加 JS：
 
 ```html
 <script src="//cdn.jsdelivr.net/gh/YangFong/docsify-contributors/dist/contributors.min.js"></script>
+```
+
+参数：
+
+```js
+window.$docsify = {
+  contributors: {
+    owner: "doocs",
+    repo: "leetcode",
+    ignores: ["/README.md"],
+    style: {
+      color: "#ffffff",
+      bgColor: "#404040",
+      isRound: true,
+      extra: ``,
+    }
+  }
+}
 ```
 
 ## 配置
