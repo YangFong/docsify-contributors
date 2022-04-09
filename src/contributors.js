@@ -1,4 +1,4 @@
-window.$docsify.plugins = [].concat((hook, vm) => {
+window.$docsify.plugins = [].concat(window.$docsify.plugins, (hook, vm) => {
   const {
     owner = "doocs",
     repo = "leetcode",
@@ -68,8 +68,8 @@ window.$docsify.plugins = [].concat((hook, vm) => {
 
   /**
    * 是否属于需要忽略的文件
-   * @param {*} file 
-   * @returns 
+   * @param {*} file
+   * @returns
    */
   const isIgnore = (file) => ignores.some((url) => url === `/${file}`);
 
@@ -132,4 +132,4 @@ window.$docsify.plugins = [].concat((hook, vm) => {
       )
     );
   });
-}, window.$docsify.plugins);
+});
