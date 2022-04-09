@@ -1,0 +1,24 @@
+{
+  "name": "docsify-contributors",
+  "version": "1.0.0",
+  "description": "A plug-in for displaying page contributors",
+  "main": "index.js",
+  "scripts": {
+    "build": "uglifyjs ./src/contributors.js -c -m -o ./dist/contributors.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YangFong/docsify-contributorst.git"
+  },
+  "keywords": [
+    "docsify",
+    "plugin",
+    "contributors"
+  ],
+  "bugs": {
+    "url": "https://github.com/YangFong/docsify-contributorst/issues"
+  },
+  "homepage": "https://github.com/YangFong/docsify-contributorst",
+  "author": "YangFong",
+  "license": "MIT"
+}
