@@ -82,12 +82,13 @@ window.$docsify.plugins = [].concat((hook, vm) => {
     styleEle.innerText = `
       .${className} {
         display: flex;
+        flex-wrap: wrap;
         padding-top: 1em;
       }
 
       .${className} a {
         position: relative;
-        margin: 0 0.5em;
+        margin: 0.5em;
       }
 
       .${className} a::before, .${className} a::after {
