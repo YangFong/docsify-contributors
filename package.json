@@ -4,11 +4,11 @@
   "description": "A plug-in for displaying page contributors",
   "main": "index.js",
   "scripts": {
-    "build": "uglifyjs ./src/contributors.js -c -m -o ./dist/contributors.min.js"
+    "build": "uglifyjs ./src/index.js -c -m -o ./dist/index.min.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YangFong/docsify-contributorst.git"
+    "url": "git+https://github.com/YangFong/docsify-contributors.git"
   },
   "keywords": [
     "docsify",
@@ -16,9 +16,9 @@
     "contributors"
   ],
   "bugs": {
-    "url": "https://github.com/YangFong/docsify-contributorst/issues"
+    "url": "https://github.com/YangFong/docsify-contributors/issues"
   },
-  "homepage": "https://github.com/YangFong/docsify-contributorst",
+  "homepage": "https://github.com/YangFong/docsify-contributors",
   "author": "YangFong",
   "license": "MIT"
 }
