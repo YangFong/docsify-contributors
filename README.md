@@ -9,7 +9,7 @@
 添加 JS：
 
 ```html
-<script src="//cdn.jsdelivr.net/gh/YangFong/docsify-contributors/dist/contributors.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-contributors@latest/dist/index.min.js"></script>
 ```
 
 参数：
