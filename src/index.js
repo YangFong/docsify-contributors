@@ -1,14 +1,23 @@
 window.$docsify.plugins = [].concat((hook, vm) => {
-  const { repo } = vm.config;
+  // 默认值配置
+  const defaultConfigStyle = {
+    color: "#ffffff",
+    bgColor: "#404040",
+    isRound: true,
+    extra: ``,
+  };
+
+  const { repo, contributors = {} } = vm.config;
   const {
-    ignores = ["/README.md"],
-    style = {
-      color: "#ffffff",
-      bgColor: "#404040",
-      isRound: true,
-      extra: ``,
-    },
-  } = vm.config.contributors ?? {};
+    ignores,
+    style
+  } = {
+    ignores: contributors.ignores ?? [],
+    style: {
+      ...defaultConfigStyle,
+      ...(contributors.style ?? {})
+    }
+  }
 
   /**
    * 简化获取元素
@@ -33,7 +42,7 @@ window.$docsify.plugins = [].concat((hook, vm) => {
     return users
       .map(
         ({ url, img, name }) => `
-          <a class="doocs-contributor" href="${url}" target="_blank" dada-title="@${name}">
+          <a href="${url}" target="_blank" dada-title="@${name}">
             <img src="${img}" width="30" height="30" alt="@${name}">
           </a>`
       )
@@ -70,20 +79,25 @@ window.$docsify.plugins = [].concat((hook, vm) => {
   const isIgnore = (file) => ignores.some((url) => url === `/${file}`);
 
   hook.init(() => {
-    const { color, bgColor, isRound, extra } = style;
+    const {
+      color = "#ffffff",
+      bgColor = "#404040",
+      isRound = true,
+      extra = ``,
+    } = style;
     const styleEle = document.createElement("style");
     styleEle.innerText = `
-      .doocs-contributors {
+      .docsify-contributors {
         display: flex;
         padding-top: 1em;
       }
 
-      .doocs-contributors a {
+      .docsify-contributors a {
         position: relative;
         margin: 0 0.5em;
       }
 
-      .doocs-contributors a::before, .doocs-contributors a::after {
+      .docsify-contributors a::before, .docsify-contributors a::after {
         position: absolute;
         box-sizing: border-box;
         transition: 100ms;
@@ -92,7 +106,7 @@ window.$docsify.plugins = [].concat((hook, vm) => {
         background-color: ${bgColor};
       }
 
-      .doocs-contributors a::before {
+      .docsify-contributors a::before {
         content: "contributor" attr(dada-title);
         top: -100%;
         left: 50%;
@@ -105,7 +119,7 @@ window.$docsify.plugins = [].concat((hook, vm) => {
         color: ${color};
       }
 
-      .doocs-contributors a::after {
+      .docsify-contributors a::after {
         content: '';
         top: calc(-100% + 26.5px);
         left: 50%;
@@ -115,13 +129,13 @@ window.$docsify.plugins = [].concat((hook, vm) => {
         clip-path: path("m0 0 l10 7 l10 -7z");
       }
 
-      .doocs-contributors a:hover::before,.doocs-contributors a:hover::after  {
+      .docsify-contributors a:hover::before,.docsify-contributors a:hover::after  {
         z-index: 2;
         opacity: 1;
         transform: translate(-50%, 0%);
       }
 
-      .doocs-contributors a img {
+      .docsify-contributors a img {
         border-radius: ${isRound ? 50 : 0}%;
       }
 
@@ -135,11 +149,11 @@ window.$docsify.plugins = [].concat((hook, vm) => {
     if (isIgnore(file)) {
       return next(html);
     }
-    return next(html + `<div class="doocs-contributors"></div>`);
+    return next(html + `<div class="docsify-contributors"></div>`);
   });
 
   hook.doneEach(async () => {
-    const target = $(".doocs-contributors");
+    const target = $(".docsify-contributors");
     if (target == null) {
       return;
     }

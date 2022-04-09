@@ -17,7 +17,7 @@
 ```js
 window.$docsify = {
   contributors: {
-    ignores: ["/README.md"],
+    ignores: [],
     style: {
       color: "#ffffff",
       bgColor: "#404040",
@@ -32,7 +32,7 @@ window.$docsify = {
 
 | 属性    | 类型     | 说明                                 | 默认值         |
 | ------- | -------- | ------------------------------------ | -------------- |
-| ignores | string[] | 需要忽略展示的文件，开头需要加上 `/` | ["/README.md"] |
+| ignores | string[] | 需要忽略展示的文件，开头需要加上 `/` | [] |
 | style   | {}       | 样式控制，见下文                     |                |
 
 ## style
