@@ -24,9 +24,9 @@ window.$docsify = {
       bgColor: "#404040",
     },
     image: {
-      margin: "0.5em",
       size: 30,
       isRound: true,
+      margin: "0.5em",
     },
   },
 };
@@ -34,27 +34,24 @@ window.$docsify = {
 
 ## 配置
 
-| 属性    | 类型     | 说明               | 默认值 | 示例                              |
-| ------- | -------- | ------------------ | ------ | --------------------------------- |
-| repo    | string   | 当前站点仓库信息（必填）   | ——     | `"YangFong/docsify-contributors"` |
-| ignores | string[] | 需要忽略展示的文件 | []     | ['/README.md']                    |
-| style   | {}       | 见下文             |
-| image   | {}       | 见下文             |
+| 属性            | 类型     | 说明                     | 默认值 | 示例                              |
+| --------------- | -------- | ------------------------ | ------ | --------------------------------- |
+| repo            | string   | 当前站点仓库信息（必填） | ——     | `"YangFong/docsify-contributors"` |
+| ignores         | string[] | 需要忽略展示的文件       | []     | `['/README.md']`                  |
+| [style](#style) | {}       | 见下文                   |        |                                   |
+| [image](#image) | {}       | 见下文                   |        |                                   |
 
 ### style
 
-| 属性    | 类型    | 说明                   | 默认值  |
-| ------- | ------- | ---------------------- | ------- |
-| color   | string  | 贡献者名称颜色         | #ffffff |
-| bgColor | string  | 伪元素背景色           | #404040 |
-| isRound | boolean | 是否使用圆形头像（旧） | true    |
-
-> `style.isRound` 不再推荐使用，未来在某个版本可能进行移除。
+| 属性    | 类型    | 说明                   | 默认值    |
+| ------- | ------- | ---------------------- | --------- |
+| color   | string  | 贡献者名称颜色         | `#ffffff` |
+| bgColor | string  | 伪元素背景色           | `#404040` |
 
 ### image
 
 | 属性    | 类型    | 说明                      | 默认值  | 示例    |
 | ------- | ------- | ------------------------- | ------- | ------- |
-| margin  | string  | 头像外边距，使用 CSS 格式 | `0.5em` | `0 1em` |
 | size    | number  | 头像大小尺寸              | `30`    |         |
-| isRound | boolean | 是否使用圆形头像（新）    | `true`  |         |
+| isRound | boolean | 是否使用圆形头像    | `true`  |         |
+| margin  | string  | 头像外边距，使用 CSS 格式 | `0.5em` | `0 1em` |
