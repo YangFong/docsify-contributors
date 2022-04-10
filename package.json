@@ -4,7 +4,7 @@
   "description": "A plug-in for displaying page contributors",
   "main": "index.js",
   "scripts": {
-    "build": "uglifyjs ./src/index.js -c -m -o ./dist/index.min.js"
+    "build": "esbuild --minify ./src/index.ts --bundle --outfile=/dist/index.min.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,9 @@
   },
   "homepage": "https://github.com/YangFong/docsify-contributors",
   "author": "YangFong",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "0.14.34",
+    "prettier": "2.6.2"
+  }
 }
