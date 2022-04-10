@@ -1,19 +1,34 @@
 window.$docsify.plugins = [].concat((hook, vm) => {
-  const { repo, contributors = {} } = vm.config;
+  let { repo, contributors = {} } = vm.config;
+  repo = contributors.repo || repo;
+  if (!repo) {
+    return;
+  }
 
-  const defaultConfigStyle = {
-    color: "#ffffff",
-    bgColor: "#404040",
-    isRound: true,
-    extra: ``,
+  const defaultConfig = {
+    style: {
+      color: "#ffffff",
+      bgColor: "#404040",
+      isRound: true,
+      extra: ``,
+    },
+    image: {
+      margin: "0.5em",
+      isRound: true,
+      size: 30,
+    },
   };
 
   const className = `${repo.split("/")[1]}-contributors`;
-  const { ignores, style } = {
+  const { ignores, style, image } = {
     ignores: contributors.ignores ?? [],
     style: {
-      ...defaultConfigStyle,
+      ...defaultConfig.style,
       ...(contributors.style ?? {}),
+    },
+    image: {
+      ...defaultConfig.image,
+      ...(contributors.image ?? {}),
     },
   };
 
@@ -37,11 +52,12 @@ window.$docsify.plugins = [].concat((hook, vm) => {
    * @returns
    */
   const createContributorsHTML = (users) => {
+    const { size } = image;
     return users
       .map(
         ({ url, img, name }) => `
           <a href="${url}" target="_blank" dada-title="@${name}">
-            <img src="${img}" width="30" height="30" alt="@${name}">
+            <img src="${img}" width="${size}" height="${size}" alt="@${name}">
           </a>`
       )
       .join("");
@@ -77,7 +93,12 @@ window.$docsify.plugins = [].concat((hook, vm) => {
   const isIgnore = (file) => ignores.some((url) => url === `/${file}`);
 
   hook.init(() => {
-    const { color, bgColor, isRound, extra } = style;
+    let { color, bgColor, isRound, extra } = style;
+    const { margin } = image;
+    if (!image.isRound) {
+      isRound = false;
+    }
+
     const styleEle = document.createElement("style");
     styleEle.innerText = `
       .${className} {
@@ -88,7 +109,7 @@ window.$docsify.plugins = [].concat((hook, vm) => {
 
       .${className} a {
         position: relative;
-        margin: 0.5em;
+        margin: ${margin};
       }
 
       .${className} a::before, .${className} a::after {
