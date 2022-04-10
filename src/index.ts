@@ -116,7 +116,6 @@ import {
             let data: { author?: Author }[];
             if (map.has(file)) {
                 data = map.get(file);
-                console.log("hash 缓存");
             } else {
                 data = await getCommits(repo, file);
                 map.set(file, data);
