@@ -14,7 +14,7 @@ export const $ = (expr: string) => document.querySelector(expr);
 export const getCommits = async (
     repo: string,
     file: string
-): Promise<{ author: Author }[]> => {
+): Promise<{ author?: Author }[]> => {
     const res = await fetch(
         `https://api.github.com/repos/${repo}/commits?path=/${file}&per_page=100`
     );
@@ -26,9 +26,10 @@ export const getCommits = async (
  * @param data
  * @returns
  */
-export const mapUser = (data: { author: Author }[]) => {
+export const mapUser = (data: { author?: Author }[]) => {
     const set = new Set();
     return data
+        .filter(({ author }) => author != null)
         .map(({ author }) => ({
             url: author.html_url,
             img: author.avatar_url,

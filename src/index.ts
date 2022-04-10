@@ -32,6 +32,8 @@ import {
 
         const className = `${repo.split('/')[1]}-contributors`;
 
+        const map = new Map<string, { author?: Author }[]>();
+
         hook.init(() => {
             const { color, bgColor, extra } = style;
             const { margin, isRound } = image;
@@ -111,7 +113,14 @@ import {
                 return;
             }
             const { file } = vm.route;
-            const data = await getCommits(repo, file);
+            let data: { author?: Author }[];
+            if (map.has(file)) {
+                data = map.get(file);
+                console.log("hash 缓存");
+            } else {
+                data = await getCommits(repo, file);
+                map.set(file, data);
+            }
             target.innerHTML = createContributorsHTML(image, mapUser(data));
         });
     },
