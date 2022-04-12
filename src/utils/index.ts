@@ -55,7 +55,7 @@ export const createContributorsHTML = (image: Image, users) => {
     return users
         .map(
             ({ url, img, name }) => `
-                <a href="${url}" target="_blank" dada-title="@${name}">
+                <a href="${url}" target="_blank" data-title="@${name}">
                     <img src="${img}" width="${size}" height="${size}" alt="@${name}">
                 </a>`
         )
