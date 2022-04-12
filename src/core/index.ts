@@ -54,7 +54,7 @@ window.$docsify.plugins = [].concat((hook, vm) => {
                 }
 
                 .${className} a::before {
-                    content: "contributor" attr(dada-title);
+                    content: "contributor" attr(data-title);
                     top: -100%;
                     left: 50%;
                     transform: translate(-50%, -100%);

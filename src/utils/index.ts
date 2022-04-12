@@ -57,7 +57,7 @@ export const createContributorsHTML = (
     return users
         .map(
             ({ url, name }) => `
-                <a href="https://github.com/${name}" target="_blank" dada-title="@${name}">
+                <a href="https://github.com/${name}" target="_blank" data-title="@${name}">
                     <img src="${url}" width="${size}" height="${size}" alt="@${name}">
                 </a>`
         )
