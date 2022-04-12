@@ -1,10 +1,10 @@
 {
   "name": "docsify-contributors",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "A plug-in for displaying page contributors",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild --minify src/core/index.ts --bundle --outfile=/dist/index.min.js",
+    "build": "node esbuild.config.js",
     "publish": "npm run build && npm publish"
   },
   "repository": {

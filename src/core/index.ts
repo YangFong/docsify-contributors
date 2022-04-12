@@ -44,7 +44,8 @@ window.$docsify.plugins = [].concat((hook, vm) => {
                     margin: ${margin};
                 }
 
-                .${className} a::before, .${className} a::after {
+                .${className} a::before, 
+                .${className} a::after {
                     position: absolute;
                     box-sizing: border-box;
                     transition: 100ms;
@@ -144,9 +145,8 @@ window.$docsify.plugins = [].concat((hook, vm) => {
             if (isIgnore(file, ignores)) {
                 return next(html);
             }
-            return next(
-                html +
-                `
+            return next(`
+                ${html}
                 <div class='${className}'>
                     <div class='load-container'>
                         <div></div>
