@@ -5,9 +5,9 @@ declare interface Style {
 }
 
 declare interface Image {
+    size?: number;
     margin?: string;
     isRound?: boolean;
-    size?: number;
 }
 
 declare interface Config {
@@ -16,8 +16,25 @@ declare interface Config {
     style?: Style;
     image?: Image;
 }
+
 declare interface Author {
-    html_url: string;
-    avatar_url: string;
     login: string;
+    avatar_url: string;
+}
+
+declare interface Hook {
+    init: (callback: () => void) => void;
+    afterEach: (callback: (html: string, next: (html: string) => void) => void) => void;
+    doneEach: (callback: () => void) => void;
+}
+
+declare interface Vm {
+    config: { contributors: Config };
+    route: { file: string };
+}
+
+interface Window {
+    $docsify: {
+        plugins: ((hook: Hook, vm: Vm) => void)[]
+    };
 }

@@ -1,20 +1,13 @@
-import { defaultConfig } from './config';
+import { defaultConfig } from '../config';
 import {
     $,
     getCommits,
     createContributorsHTML,
     mapUser,
     isIgnore
-} from './utils';
+} from '../utils';
 
-((window as any).$docsify as any).plugins = [].concat(
-    (
-        hook: any,
-        vm: {
-            config: { contributors: Config };
-            route: { file: string };
-        }
-    ) => {
+window.$docsify.plugins = [].concat((hook, vm) => {
         const { contributors } = vm.config;
 
         const { ignores, style, image, repo } = {
@@ -95,16 +88,75 @@ import {
                 }
 
                 ${extra}
+
+                .load-container {
+                    width: 100px;
+                    height: 30px;
+                    font-size: 10px;
+                    text-align: center;
+                }
+
+                .load-container div {
+                    display: inline-block;
+                    height: 100%;
+                    width: 6px;
+                    margin-left: 5px;
+                    background-color: #099;
+                    animation: load 1.2s infinite ease-in-out;
+                }
+
+                .load-container div:nth-child(1) {
+                    animation-delay: -1.2s;
+                }
+
+                .load-container div:nth-child(2) {
+                    animation-delay: -1.1s;
+                }
+
+                .load-container div:nth-child(3) {
+                    animation-delay: -1.0s;
+                }
+
+                .load-container div:nth-child(4) {
+                    animation-delay: -0.9s;
+                }
+
+                .load-container div:nth-child(5) {
+                    animation-delay: -0.8s;
+                }
+
+                @keyframes load {
+                    0%,
+                    40%,
+                    100% {
+                        transform: scaleY(0.4);
+                    }
+                    20% {
+                        transform: scaleY(1);
+                    }
+                }
             `;
             document.head.append(styleEle);
         });
 
-        hook.afterEach((html: string, next: (html: string) => void) => {
+        hook.afterEach((html, next) => {
             const { file } = vm.route;
             if (isIgnore(file, ignores)) {
                 return next(html);
             }
-            return next(html + `<div class="${className}"></div>`);
+            return next(
+                html +
+                `
+                <div class='${className}'>
+                    <div class='load-container'>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>`
+            );
         });
 
         hook.doneEach(async () => {
@@ -123,5 +175,5 @@ import {
             target.innerHTML = createContributorsHTML(image, mapUser(data));
         });
     },
-    (window as any).$docsify.plugins
+    window.$docsify.plugins
 );

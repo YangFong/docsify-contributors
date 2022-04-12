@@ -31,8 +31,7 @@ export const mapUser = (data: { author?: Author }[]) => {
     return data
         .filter(({ author }) => author != null)
         .map(({ author }) => ({
-            url: author.html_url,
-            img: author.avatar_url,
+            url: author.avatar_url,
             name: author.login
         }))
         .filter(({ name }) => {
@@ -50,13 +49,16 @@ export const mapUser = (data: { author?: Author }[]) => {
  * @param users
  * @returns
  */
-export const createContributorsHTML = (image: Image, users) => {
+export const createContributorsHTML = (
+    image: Image,
+    users: { url: string; name: string }[]
+) => {
     const { size } = image;
     return users
         .map(
-            ({ url, img, name }) => `
-                <a href="${url}" target="_blank" data-title="@${name}">
-                    <img src="${img}" width="${size}" height="${size}" alt="@${name}">
+            ({ url, name }) => `
+                <a href="https://github.com/${name}" target="_blank" data-title="@${name}">
+                    <img src="${url}" width="${size}" height="${size}" alt="@${name}">
                 </a>`
         )
         .join('');
