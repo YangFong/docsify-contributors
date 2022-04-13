@@ -10,11 +10,17 @@ declare interface Image {
     isRound?: boolean;
 }
 
+declare interface Load {
+    isOpen?: boolean;
+    color?: string;
+}
+
 declare interface Config {
     repo: string;
     ignores?: string[];
     style?: Style;
     image?: Image;
+    load?: Load;
 }
 
 declare interface Author {
@@ -29,8 +35,12 @@ declare interface Hook {
 }
 
 declare interface Vm {
-    config: { contributors: Config };
-    route: { file: string };
+    config: {
+        contributors: Config
+    };
+    route: {
+        file: string
+    };
 }
 
 interface Window {
