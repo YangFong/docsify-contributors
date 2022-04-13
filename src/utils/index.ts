@@ -61,7 +61,7 @@ export const createContributorsHTML = (
                     <img src="${url}" width="${size}" height="${size}" alt="@${name}">
                 </a>`
         )
-        .join('');
+        .join("");
 };
 
 /**

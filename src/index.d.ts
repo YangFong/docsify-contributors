@@ -30,21 +30,23 @@ declare interface Author {
 
 declare interface Hook {
     init: (callback: () => void) => void;
-    afterEach: (callback: (html: string, next: (html: string) => void) => void) => void;
+    afterEach: (
+        callback: (html: string, next: (html: string) => void) => void
+    ) => void;
     doneEach: (callback: () => void) => void;
 }
 
 declare interface Vm {
     config: {
-        contributors: Config
+        contributors: Config;
     };
     route: {
-        file: string
+        file: string;
     };
 }
 
 interface Window {
     $docsify: {
-        plugins: ((hook: Hook, vm: Vm) => void)[]
+        plugins: ((hook: Hook, vm: Vm) => void)[];
     };
 }

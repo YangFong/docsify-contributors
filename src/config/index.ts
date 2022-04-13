@@ -1,17 +1,17 @@
-export const defaultConfig: Omit<Config, 'repo'> = {
+export const defaultConfig: Omit<Config, "repo"> = {
     ignores: [],
     style: {
-        color: '#ffffff',
-        bgColor: '#404040',
+        color: "#ffffff",
+        bgColor: "#404040",
         extra: ``
     },
     image: {
-        margin: '0.5em',
+        margin: "0.5em",
         isRound: true,
         size: 30
     },
     load: {
         isOpen: false,
-        color: '#009999'
+        color: "#009999"
     }
 };
