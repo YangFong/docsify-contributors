@@ -1,5 +1,8 @@
 # docsify-contributors
 
+[![npm version](https://img.shields.io/npm/v/docsify-contributors)](https://www.npmjs.com/package/docsify-contributors)
+[![npm `downloads`](https://img.shields.io/npm/dm/docsify-contributors)](https://www.npmjs.com/package/docsify-contributors)
+
 <p align="center">
   <img src="https://docsify.js.org/_media/icon.svg" />
 </p>
