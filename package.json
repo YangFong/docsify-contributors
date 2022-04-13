@@ -1,6 +1,6 @@
 {
   "name": "docsify-contributors",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "description": "A plug-in for displaying page contributors",
   "main": "index.js",
   "scripts": {

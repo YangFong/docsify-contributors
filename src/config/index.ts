@@ -9,5 +9,9 @@ export const defaultConfig: Omit<Config, 'repo'> = {
         margin: '0.5em',
         isRound: true,
         size: 30
+    },
+    load: {
+        isOpen: false,
+        color: '#009999'
     }
 };

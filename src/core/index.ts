@@ -10,7 +10,7 @@ import {
 window.$docsify.plugins = [].concat((hook, vm) => {
         const { contributors } = vm.config;
 
-        const { ignores, style, image, repo } = {
+        const { ignores, style, image, repo, load } = {
             repo: contributors.repo,
             ignores: contributors.ignores ?? defaultConfig.ignores,
             style: {
@@ -20,6 +20,10 @@ window.$docsify.plugins = [].concat((hook, vm) => {
             image: {
                 ...defaultConfig.image,
                 ...(contributors.image ?? {})
+            },
+            load: {
+                ...defaultConfig.load,
+                ...(contributors.load ?? {})
             }
         };
 
@@ -30,6 +34,7 @@ window.$docsify.plugins = [].concat((hook, vm) => {
         hook.init(() => {
             const { color, bgColor, extra } = style;
             const { margin, isRound } = image;
+            const { isOpen, color: loadColor } = load;
 
             const styleEle = document.createElement('style');
             styleEle.innerText = `
@@ -44,7 +49,7 @@ window.$docsify.plugins = [].concat((hook, vm) => {
                     margin: ${margin};
                 }
 
-                .${className} a::before, 
+                .${className} a::before,
                 .${className} a::after {
                     position: absolute;
                     box-sizing: border-box;
@@ -90,6 +95,7 @@ window.$docsify.plugins = [].concat((hook, vm) => {
 
                 ${extra}
 
+                ${isOpen ? `
                 .load-container {
                     width: 100px;
                     height: 30px;
@@ -102,7 +108,7 @@ window.$docsify.plugins = [].concat((hook, vm) => {
                     height: 100%;
                     width: 6px;
                     margin-left: 5px;
-                    background-color: #099;
+                    background-color: ${loadColor};
                     animation: load 1.2s infinite ease-in-out;
                 }
 
@@ -135,7 +141,7 @@ window.$docsify.plugins = [].concat((hook, vm) => {
                     20% {
                         transform: scaleY(1);
                     }
-                }
+                }` : ''}
             `;
             document.head.append(styleEle);
         });
@@ -148,13 +154,15 @@ window.$docsify.plugins = [].concat((hook, vm) => {
             return next(`
                 ${html}
                 <div class='${className}'>
-                    <div class='load-container'>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                    </div>
+                    ${load.isOpen ? `
+                        <div class='load-container'>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    ` : ''}
                 </div>`
             );
         });
